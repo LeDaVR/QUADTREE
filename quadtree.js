@@ -57,8 +57,7 @@ class QuadTree {
         // Algoritmo
         if ( !this.boundary.contains(point) )
             return;
-            
-        
+
         if (( this.points.length ) < ( this.capacity )){
             this.points.push(point);
         }
@@ -73,6 +72,26 @@ class QuadTree {
         }
 
     }
+    query (range , found ){
+        count++;
+        if ( this.boundary.intersects(range))
+        {
+            for ( let p of this . points )
+                if ( range.contains(p) )
+                    found.push( p );
+            if( this.divided )
+            {
+                this.northeast.query(range , found );
+                this.northwest.query(range , found );
+                this.southeast.query(range , found );
+                this.southwest.query(range , found );
+            }
+        
+        }
+        
+    }
+        
+
     show () {
         stroke (255) ;
         strokeWeight (1) ;
